@@ -4,9 +4,9 @@
 \alias{sustain}
 \title{sustain}
 \usage{
-sustain(x, tolerance = 1, ignore.na = FALSE)
+sustain(x, casefun, tolerance = 1)
 }
 \description{
-rolls over vector, staying at 1 until \code{tolerance} number
-of zeroes has been encountered.
+rolls over vector, "sustaining" values that return TRUE through the case-function.
+Values are sustained "tolerance" number of times.
 }

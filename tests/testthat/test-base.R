@@ -41,45 +41,26 @@ test_that("nsince works", {
 })
 
 test_that("sustain works", {
-   x <- sustain(c(0,0,1,0,1))
+   isone <- function(x) x == 1
+   x <- sustain(c(0,0,1,0,1),casefun=isone)
    expect_true(all(x[c(3,4,5)] == 1))
    expect_equal(sum(x), 3)
 
-   x <- sustain(c(0,0,1,0,0,1))
+   x <- sustain(c(0,0,1,0,0,1),casefun=isone)
    expect_false(all(x[c(3,4,5,6)] == 1))
    expect_equal(sum(x), 3)
 
-   x <- sustain(c(0,0,1,0,0,1), 2)
+   x <- sustain(c(0,0,1,0,0,1), 2,casefun=isone)
    expect_true(all(x[c(3,4,5,6)] == 1))
    expect_equal(sum(x), 4)
 
-   x <- sustain(c(0,1,0,1,0,0,1,0,1))
-   expect_true(all(x[c(2,3,4,5,7,8,9)] == 1))
-   expect_true(x[6] == 0)
-   expect_equal(sum(x), 7)
-})
-
-test_that("sustest sustain equivalent", {
-   vanilla <- function(x) x == 1
-   x <- sustest(c(0,0,1,0,1),casefun=vanilla)
-   expect_true(all(x[c(3,4,5)] == 1))
-   expect_equal(sum(x), 3)
-
-   x <- sustest(c(0,0,1,0,0,1),casefun=vanilla)
-   expect_false(all(x[c(3,4,5,6)] == 1))
-   expect_equal(sum(x), 3)
-
-   x <- sustest(c(0,0,1,0,0,1), 2,casefun=vanilla)
-   expect_true(all(x[c(3,4,5,6)] == 1))
-   expect_equal(sum(x), 4)
-
-   x <- sustest(c(0,1,0,1,0,0,1,0,1),casefun=vanilla)
+   x <- sustain(c(0,1,0,1,0,0,1,0,1),casefun=isone)
    expect_true(all(x[c(2,3,4,5,7,8,9)] == 1))
    expect_true(x[6] == 0)
    expect_equal(sum(x), 7)
 
    naproof <- function(x){!is.na(x) & x == 1}
-   x <- sustest(c(NA,1,0,1,NA,NA,1,NA,1),casefun=naproof)
+   x <- sustain(c(NA,1,0,1,NA,NA,1,NA,1),casefun=naproof)
    print(x)
    expect_true(all(x[c(2,3,4,5,7,8,9)] == 1))
    expect_equal(sum(is.na(x)),2)
@@ -127,6 +108,4 @@ test_that("isNth works", {
 
    x <- isNth(c(0,NA,1,1,0,0,1),1,2)
    expect_equal(sum(x),1)
-
-
 })

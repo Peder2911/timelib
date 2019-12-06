@@ -60,41 +60,12 @@ nsince <- function(x,case = 1){
    })
 }
 
-#' sustain
+#' sustain 
 #' 
-#' rolls over vector, staying at 1 until \code{tolerance} number
-#' of zeroes has been encountered.
+#' rolls over vector, "sustaining" values that return TRUE through the case-function.
+#' Values are sustained "tolerance" number of times.
 #' @export
-sustain <- function(x,tolerance = 1,ignore.na = FALSE){
-   tol <- 0 
-   sapply(x, function(i){
-      i <- ifelse(ignore.na & is.na(i), 0, i)
-   
-      if(is.na(i)){
-         i
-
-      } else if (i == 1) {
-         tol <<- tolerance
-         1
-
-      } else {
-         tol <<- tol - 1 
-         if(tol < 0){
-            0
-         } else {
-            1
-         }
-
-      }
-   })
-}
-
-#' sustest 
-#' 
-#' rolls over vector, staying at 1 until \code{tolerance} number
-#' of zeroes has been encountered.
-#' @export
-sustest  <- function(x,casefun,tolerance = 1,ignore.na = FALSE){
+sustain <- function(x,casefun,tolerance = 1){
    tol <- 0 
    prevcase <- NA
 
