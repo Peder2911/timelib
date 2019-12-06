@@ -1,0 +1,17 @@
+Package: timelib 
+Title: Simple binary classifier evaluation 
+Version: 0.0.0.9000
+Author: c(person("Peder", "Landsverk", email = "pglandsverk@gmail.com", role = c("aut", "cre")),
+Description: Tested functions for working with timeseries.
+License: MIT 
+Encoding: UTF-8
+LazyData: true
+Imports:
+   dplyr,
+   magrittr,
+   glue,
+   parallel,
+   zoo 
+Suggests: 
+   testthat (>= 2.1.0)
+RoxygenNote: 6.1.1
