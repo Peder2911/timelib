@@ -2,6 +2,7 @@
 
 export(change)
 export(crop)
+export(halflife)
 export(isNth)
 export(nsince)
 export(offset)

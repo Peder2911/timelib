@@ -122,7 +122,7 @@ crop <- function(x, tail){
 #' simple function that alters a series by inserting replacement value 
 #' before encountering the case value. 
 #' @export
-until <- function(x,case=1,replacement=0,replaceMissing = TRUE){
+until <- function(x,casefun,replacement=0,replaceMissing = TRUE){
    met <- FALSE
    sapply(x,function(i){
       if(!met){
@@ -132,9 +132,7 @@ until <- function(x,case=1,replacement=0,replaceMissing = TRUE){
             rep <- replacement
          }
 
-         met <<- i == case
-         met <<- met & !is.na(met)
-
+         met <<- casefun(i) 
          ifelse(met, i, rep)
       } else {
          i
@@ -159,4 +157,14 @@ isNth <- function(x,case = 1, n = 1){
          FALSE
       }
    })
+}
+
+#' halflife 
+#' 
+#' Returns a function that will yield an exponential decay that halves every 
+#' @export
+halflife <- function(t, init = 1){
+   function(x){
+      init * (0.5 ^ (x * (1/t)))
+   }
 }

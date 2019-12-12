@@ -89,16 +89,17 @@ test_that("crop works", {
 })
 
 test_that("until works", {
-   x <- until(c(NA,NA,0,1,0,0,1,0,1,0,0,1,0,0))
+   isone <- function(x) !is.na(x) & x == 1  
+   x <- until(c(NA,NA,0,1,0,0,1,0,1,0,0,1,0,0),isone)
    expect_false(any(is.na(x)))
    expect_equal(sum(x == 0), 10)
    expect_equal(sum(x == 1), 4)
 
-   x <- until(c(NA,NA,0,1,0,0,1,0,1,0,0,1,0,0),replacement = 10)
+   x <- until(c(NA,NA,0,1,0,0,1,0,1,0,0,1,0,0),replacement = 10,isone)
    expect_true(all(x[c(1,2,3)] == 10))
    expect_true(x[4] == 1)
 
-   x <- until(c(NA,NA,0,1,0,0,1,0,1,0,0,1,0,0),replacement = NA)
+   x <- until(c(NA,NA,0,1,0,0,1,0,1,0,0,1,0,0),replacement = NA,isone)
    expect_equal(sum(is.na(x)), 3)
 })
 

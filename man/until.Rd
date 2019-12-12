@@ -4,7 +4,7 @@
 \alias{until}
 \title{crop}
 \usage{
-until(x, case = 1, replacement = 0, replaceMissing = TRUE)
+until(x, casefun, replacement = 0, replaceMissing = TRUE)
 }
 \description{
 simple function that alters a series by inserting replacement value 
