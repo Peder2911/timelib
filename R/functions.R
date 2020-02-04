@@ -161,10 +161,38 @@ isNth <- function(x,case = 1, n = 1){
 
 #' halflife 
 #' 
-#' Returns a function that will yield an exponential decay that halves every 
+#' Returns a function that will yield an exponential decay that halves every \code{t}. 
 #' @export
 halflife <- function(t, init = 1){
    function(x){
       init * (0.5 ^ (x * (1/t)))
    }
 }
+
+#' lastseen 
+#' 
+#' A function that takes \code{n} named vectors (e.g lastseen(x=..., y=...))
+#' and returns a factor with the "last seen" one-hot value.
+#' @export
+lastseen <- function(...){  
+   args <- list(...)  
+   if(!all(lapply(args,length) == length(args[[1]]))){  
+      stop("you violated the law")  
+   }  
+
+   if(is.null(names(args))){  
+      stop("you need to name the arguments!")  
+   }  
+
+   anames <- names(args)
+   mat <- do.call(cbind,args)
+
+   current <- NA
+   sapply(1:nrow(mat), function(rnum){
+      row <- mat[rnum,]
+      if(any(row == 1, na.rm = T)){
+         current <<- anames[row == 1]
+      }
+      current
+   })
+}     
